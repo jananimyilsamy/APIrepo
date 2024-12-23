@@ -17,14 +17,16 @@ import com.customer.repository.CustomerDetailsRepo;
 @Service
 public class CustomerPerformanceService {
 
-//	private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(CustomerPerformanceService.class);
 
 	@Autowired
 	private CustomerDetailsRepo customerdetailsrepo;
 
     // Sequential Execution
     public String fetchCustomerDetailsSequential(List<Long> ids) {
+    	
         long startTime = System.currentTimeMillis();
+        logger.debug("Sequential Execution");
         List<CustomerDetails> results = new ArrayList<>();
         
         for (Long id : ids) {
@@ -39,6 +41,7 @@ public class CustomerPerformanceService {
 
     // Parallel Execution
     public String fetchCustomerDetailsParallel(List<Long> ids) {
+    	  logger.debug("Parallel Execution");
         long startTime = System.currentTimeMillis();
 
         List<CompletableFuture<CustomerDetails>> futures = ids.stream()

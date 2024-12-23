@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/customers")
+@ControllerAdvice
 @Endpoint(id = "custom")
 public class CustomerControllerImpl implements CustomerController {
 
@@ -31,7 +32,6 @@ public class CustomerControllerImpl implements CustomerController {
 	// Create a new customer
 	@Override
 	@PostMapping
-	
 	public ResponseEntity<CustomerDetails> createCustomer(@RequestBody CustomerDetails customer) {
 		logger.info("Creating new customer with name: {}", customer.getName());
 		CustomerDetails createdCustomer = customerservice.createCustomer(customer);
@@ -53,7 +53,7 @@ public class CustomerControllerImpl implements CustomerController {
 	// Retrieve all customers
 	@Override
 	@GetMapping("/all")
-	public ResponseEntity<List<CustomerDetails>> getAllCustomers() throws InterruptedException, ExecutionException  {
+	public ResponseEntity<List<CustomerDetails>> getAllCustomers() throws InterruptedException, ExecutionException {
 		logger.info("Retrieving all customers");
 		CompletableFuture<List<CustomerDetails>> customers = customerservice.getAllCustomers();
 		return new ResponseEntity<>(customers.get(), HttpStatus.OK);
@@ -75,6 +75,7 @@ public class CustomerControllerImpl implements CustomerController {
 	@Override
 	@GetMapping("/check-customer-experience/{Designation}")
 	public ResponseEntity<List<CustomerDetails>> findCustomerWithExpLessThanFive(@PathVariable String Designation) {
+		logger.info(" controller method for findCustomerWithExpLessThanFive:{}", Designation);
 		List<CustomerDetails> customerDesignations = customerservice
 				.findCustomersWithExperienceLessThanFive(Designation);
 		if (customerDesignations != null && !customerDesignations.isEmpty()) {
@@ -88,10 +89,10 @@ public class CustomerControllerImpl implements CustomerController {
 	@Override
 	@GetMapping("/check-country-experience")
 	public ResponseEntity<List<String>> checkExperienceInCountry(@RequestParam("country") String country) {
-		
+		logger.info(" controller method for checkExperienceInCountry:{}", country);
 		List<String> customersWithExperience = customerservice.customerExperienceInCountryForFiveYears(country);
 		if (customersWithExperience != null && !customersWithExperience.isEmpty()) {
-              return ResponseEntity.ok(customersWithExperience);
+			return ResponseEntity.ok(customersWithExperience);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
 		}

@@ -21,32 +21,32 @@ import java.util.List;
 import com.customer.convertor.JpaConverterJson;
 
 @Entity
-@Table(name = "customerdetails") // Maps this entity to the "customerdetails" table
-@Data // Generates getters, setters, equals, hashCode, and toString
-@NoArgsConstructor // Generates a no-argument constructor
-@AllArgsConstructor // Generates a constructor with all fields
+@Table(name = "customerdetails") 
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class CustomerDetails implements Serializable {
 
-    private static final long serialVersionUID = 1L; // Ensures compatibility during serialization
+    private static final long serialVersionUID = 1L; 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generate ID values
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
 
-    @NotBlank(message = "Name is mandatory") // Validation: Name should not be blank
-    @Size(max = 100, message = "Name must not exceed 100 characters") // Validation: Max length
+    @NotBlank(message = "Name is mandatory") 
+    @Size(max = 100, message = "Name must not exceed 100 characters") 
     private String name;
 
-    @Email(message = "Email should be valid") // Validation: Email format
-    @NotBlank(message = "Email is mandatory") // Validation: Email should not be blank
+    @Email(message = "Email should be valid") 
+    @NotBlank(message = "Email is mandatory") 
     private String email;
 
-    @NotBlank(message = "Designation is mandatory") // Validation: Designation should not be blank
+    @NotBlank(message = "Designation is mandatory") 
     private String designation;
     
-    @Min(value = 0, message = "Experience in years must be at least 0") // Validation: Minimum value
-    @Max(value = 50, message = "Experience in years must not exceed 50") // Validation: Maximum value
-    private Integer expyr; // Experience in years
+    @Min(value = 0, message = "Experience in years must be at least 0") 
+    @Max(value = 50, message = "Experience in years must not exceed 50") 
+    private Integer expyr; 
     
     @Convert(converter = JpaConverterJson.class) // Custom converter for JSON
     private List<String> countries;
