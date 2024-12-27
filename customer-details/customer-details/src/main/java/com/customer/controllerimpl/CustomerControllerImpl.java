@@ -52,10 +52,11 @@ public class CustomerControllerImpl implements CustomerController {
 	// Retrieve all customers
 	@Override
 	@GetMapping("/all")
-	public ResponseEntity<List<CustomerDetails>> getAllCustomers() throws InterruptedException, ExecutionException {
+	public CompletableFuture<ResponseEntity<List<CustomerDetails>>>  getAllCustomers() throws InterruptedException, ExecutionException {
 		logger.info("Retrieving all customers");
-		CompletableFuture<List<CustomerDetails>> customers = customerservice.getAllCustomers();
-		return new ResponseEntity<>(customers.get(), HttpStatus.OK);
+//		CompletableFuture<List<CustomerDetails>> customers = customerservice.getAllCustomers();
+		return customerservice.getAllCustomers()
+                .thenApply(customersdetails -> new ResponseEntity<>(customersdetails, HttpStatus.OK));
 	}
 
 	// Update a customer by ID

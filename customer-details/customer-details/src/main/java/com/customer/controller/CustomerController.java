@@ -1,6 +1,7 @@
 package com.customer.controller;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ public interface CustomerController {
 
 	ResponseEntity<CustomerDetails> getCustomerById(Long id);
 
-	ResponseEntity<List<CustomerDetails>> getAllCustomers() throws InterruptedException, ExecutionException;
+	CompletableFuture<ResponseEntity<List<CustomerDetails>>> getAllCustomers() throws InterruptedException, ExecutionException;
 
 	ResponseEntity<CustomerDetails> updateCustomer(Long id, CustomerDetails customer);
 
