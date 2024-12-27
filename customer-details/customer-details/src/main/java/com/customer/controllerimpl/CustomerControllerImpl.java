@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/customers")
 @ControllerAdvice
-@Endpoint(id = "custom")
 public class CustomerControllerImpl implements CustomerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerControllerImpl.class);
